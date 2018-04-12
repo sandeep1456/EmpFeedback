@@ -1,2 +1,2 @@
 # EmpFeedback
-Employee Feedback App
+A sample React App for collecting Employee Feedback
