@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Grid, Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, Button, PageHeader} from 'react-bootstrap';
+import {Grid, Row, Col, FormGroup, ControlLabel, FormControl,
+   HelpBlock, Button, PageHeader, Alert} from 'react-bootstrap';
 
 class FeedbackForm extends Component {
   constructor(props) {
@@ -8,12 +9,14 @@ class FeedbackForm extends Component {
     this.state = {
       name: props.name,
       strongPoints: '',
-      weakPoints: ''
+      weakPoints: '',
+      error:''
     };
 
     this.onNameChange = this.onNameChange.bind(this);
     this.onStrongPointsChange = this.onStrongPointsChange.bind(this);
     this.onWeakPointsChange = this.onWeakPointsChange.bind(this);
+    this.handleDismiss = this.handleDismiss.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -37,17 +40,49 @@ class FeedbackForm extends Component {
 
   onSubmit(e){
     e.preventDefault();
-    console.log(this.state);
+    let isValid = this.validateForm();
+    if(isValid) {
+      console.log(this.state);
+    }
   }
 
+  validateForm(){
+    if(!this.state.name) {
+      this.setState({
+        error: 'Please enter Employee Name.'
+      });
+    } else if(!this.state.strongPoints) {
+      this.setState({
+        error: 'Please enter atleast 1 strong point.'
+      });
+    } else if(!this.state.weakPoints) {
+      this.setState({
+        error: 'Please enter atleast 1 weak point.'
+      });
+    }
+  }
 
+  handleDismiss(){
+    this.setState({
+      error:''
+    });
+  }
 
   render () {
+    let alertText = '';
+    if (this.state.error) {
+      alertText =
+        <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+          <p>{this.state.error}</p>
+        </Alert>;
+    }
     return (
       <Grid className='feedback-form' >
         <PageHeader>
           Feedback
         </PageHeader>
+
+        {alertText}
 
         <form onSubmit={this.onSubmit}>
           <FieldGroup
@@ -82,6 +117,8 @@ class FeedbackForm extends Component {
           </Row>
           <Button className='right' bsStyle='primary' type='submit'> Submit Feedback</Button>
         </form>
+
+
       </Grid>
     );
   }
