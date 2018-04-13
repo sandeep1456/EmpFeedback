@@ -11,11 +11,7 @@ class FeedbackForm extends Component {
       strongPoints: '',
       weakPoints: '',
       error:'',
-      empList: [
-        { id:1, name: "Sandeep Kamble", linkedInId: "sandeeprkamble"},
-        { id:2, name: "Jeevan Patil", linkedInId: "jeevanpaatil"},
-        { id:3, name: "Sanjay Yadav", linkedInId: "sanjay-yadav-68701726"}
-      ]
+      empList: window.employeeList
     };
 
     this.onNameChange = this.onNameChange.bind(this);
