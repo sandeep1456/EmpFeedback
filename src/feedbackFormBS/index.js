@@ -79,7 +79,7 @@ class FeedbackForm extends Component {
     return (
       <Grid className='feedback-form' >
         <PageHeader>
-          Feedback
+          Feedback Form
         </PageHeader>
 
         {alertText}
