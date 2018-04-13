@@ -7,10 +7,15 @@ class FeedbackForm extends Component {
     super(props);
 
     this.state = {
-      name: props.name,
+      empId: '',
       strongPoints: '',
       weakPoints: '',
-      error:''
+      error:'',
+      empList: [
+        { id:1, name: "Sandeep Kamble", linkedInId: "sandeeprkamble"},
+        { id:2, name: "Jeevan Patil", linkedInId: "jeevanpaatil"},
+        { id:3, name: "Sanjay Yadav", linkedInId: "sanjay-yadav-68701726"}
+      ]
     };
 
     this.onNameChange = this.onNameChange.bind(this);
@@ -22,7 +27,7 @@ class FeedbackForm extends Component {
 
   onNameChange(e) {
     this.setState({
-      name: e.target.value
+      empId: e.target.value
     });
   }
 
@@ -40,26 +45,26 @@ class FeedbackForm extends Component {
 
   onSubmit(e){
     e.preventDefault();
-    let isValid = this.validateForm();
-    if(isValid) {
+    let errorMsg = this.validateForm();
+    if(errorMsg) {
+      this.setState({
+        error: errorMsg
+      });
+    } else {
       console.log(this.state);
     }
   }
 
   validateForm(){
-    if(!this.state.name) {
-      this.setState({
-        error: 'Please enter Employee Name.'
-      });
+    let errorMsg = '';
+    if(!this.state.empId) {
+      errorMsg = 'Please select Employee.';
     } else if(!this.state.strongPoints) {
-      this.setState({
-        error: 'Please enter atleast 1 strong point.'
-      });
+      errorMsg = 'Please enter atleast 1 strong point.';
     } else if(!this.state.weakPoints) {
-      this.setState({
-        error: 'Please enter atleast 1 weak point.'
-      });
+      errorMsg = 'Please enter atleast 1 weak point.';
     }
+    return errorMsg;
   }
 
   handleDismiss(){
@@ -76,6 +81,19 @@ class FeedbackForm extends Component {
           <p>{this.state.error}</p>
         </Alert>;
     }
+    let linkedInLink = '';
+    if(this.state.empId){
+      for (let i = 0 ; i<this.state.empList.length; i++) {
+        let emp = this.state.empList[i];
+        if(emp.id == this.state.empId) {
+          let linkedInURL = `https://www.linkedin.com/in/${emp.linkedInId}`;
+          linkedInLink = <Row>
+            <Col md={12}><h4>If you wish you can endorse <b>{emp.name}</b> on LinkedIn, <a target='_blank' href={linkedInURL}> Click here. </a> </h4></Col>
+          </Row>;
+          break;
+        }
+      }
+    }
     return (
       <Grid className='feedback-form' >
         <PageHeader>
@@ -85,14 +103,19 @@ class FeedbackForm extends Component {
         {alertText}
 
         <form onSubmit={this.onSubmit}>
-          <FieldGroup
-            id="formControlsName"
-            type="text"
-            label="Employee Name"
-            value={this.state.name}
-            onChange={this.onNameChange}
-            placeholder="Enter Employee Name"
-          />
+          <FormGroup controlId="formControlsNameSelect">
+            <ControlLabel>Employee Name</ControlLabel>
+            <FormControl componentClass="select"
+              value={this.state.empId}
+              onChange={this.onNameChange}
+              placeholder="Select Employee">
+              <option value={-1}>Select Employee</option>
+              {this.state.empList.map((emp, i) => (
+                <option key={i} value={emp.id}>{emp.name}</option>
+              ))}
+            </FormControl>
+          </FormGroup>
+
           <Row>
             <Col md={6}>
               <FormGroup controlId="formControlsStrong">
@@ -115,7 +138,8 @@ class FeedbackForm extends Component {
               </FormGroup>
             </Col>
           </Row>
-          <Button className='right' bsStyle='primary' type='submit'> Submit Feedback</Button>
+          {linkedInLink}
+          <Button className='pull-right' bsStyle='primary' type='submit'> Submit Feedback</Button>
         </form>
 
 
