@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
-import FeedbackForm from './feedback/';
+import FeedbackForm from './feedbackFormBS/';
+import {Grid} from 'react-bootstrap';
 
 class App extends Component {
   render () {
-    return <FeedbackForm name="Sandeep"/>;
+    return (
+      <Grid fluid={true}>
+        <FeedbackForm name="Sandeep"/>;
+      </Grid>);
   }
 }
 
