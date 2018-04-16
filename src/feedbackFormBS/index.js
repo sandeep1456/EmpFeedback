@@ -11,6 +11,7 @@ class FeedbackForm extends Component {
       strongPoints: '',
       weakPoints: '',
       error:'',
+      showSuccess: false,
       empList: window.employeeList
     };
 
@@ -18,6 +19,7 @@ class FeedbackForm extends Component {
     this.onStrongPointsChange = this.onStrongPointsChange.bind(this);
     this.onWeakPointsChange = this.onWeakPointsChange.bind(this);
     this.handleDismiss = this.handleDismiss.bind(this);
+    this.clearSuccessAlert = this.clearSuccessAlert.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -47,8 +49,32 @@ class FeedbackForm extends Component {
         error: errorMsg
       });
     } else {
-      console.log(this.state);
+      //TODO implement DB save
+      window.feedbackList[this.state.empId].push(
+       {
+         empId: this.state.empId,
+         strongPoints: this.state.strongPoints,
+         weakPoints: this.state.weakPoints,
+         submittedOn: new Date().getTime()
+       }
+     );
+
+     this.setState({
+       showSuccess : true,
+       empId: '',
+       strongPoints: '',
+       weakPoints: ''
+     });
+
+     //Clear success after 2 sec
+     setTimeout(this.clearSuccessAlert, 2000);
     }
+  }
+
+  clearSuccessAlert() {
+    this.setState({
+      showSuccess : false
+    });
   }
 
   validateForm(){
@@ -90,6 +116,12 @@ class FeedbackForm extends Component {
         }
       }
     }
+
+    let successAlert = '';
+    if(this.state.showSuccess){
+      successAlert = <Alert bsStyle='success'>Your feedback has been recorded successfully, Thank You!</Alert>;
+    }
+
     return (
       <Grid className='feedback-form' >
         <PageHeader>
@@ -97,6 +129,7 @@ class FeedbackForm extends Component {
         </PageHeader>
 
         {alertText}
+        {successAlert}
 
         <form onSubmit={this.onSubmit}>
           <FormGroup controlId="formControlsNameSelect">
@@ -137,8 +170,6 @@ class FeedbackForm extends Component {
           {linkedInLink}
           <Button className='pull-right' bsStyle='primary' type='submit'> Submit Feedback</Button>
         </form>
-
-
       </Grid>
     );
   }

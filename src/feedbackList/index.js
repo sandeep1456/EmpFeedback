@@ -16,11 +16,11 @@ class FeedbackList extends Component {
               <Row>
                 <Col md={6}>
                   <h5>Strong points</h5>
-                  <textarea readOnly>{feedback.strongPoints}</textarea>
+                  <section>{feedback.strongPoints}</section>
                 </Col>
                 <Col md={6}>
                   <h5>Weak points</h5>
-                  <textarea readOnly>{feedback.weakPoints}</textarea>
+                  <section>{feedback.weakPoints}</section>
                 </Col>
               </Row>
              </Grid>

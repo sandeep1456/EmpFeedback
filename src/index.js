@@ -7,7 +7,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import './index.css';
 
-//FIXME Global variable as data store
+//TODO fetch from DB for now using Global variable as data store
 window.employeeList = [
   { id:1, empId:"1456", name: "Sandeep Kamble", linkedInId: "sandeeprkamble"},
   { id:2, empId:"1356", name: "Jeevan Patil", linkedInId: "jeevanpaatil"},

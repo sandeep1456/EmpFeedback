@@ -4,7 +4,7 @@ body {
   font-family: sans-serif;
 }
 
-.feedback-list textarea { border: none; resize: none; width: 100%; outline: none;}
+.feedback-list section { width: 100%; white-space: pre-line;}
 .feedback-list h5 {border-bottom: 1px solid #EEE; padding-bottom: 5px; font-weight: bold;}
 
 /* bootstrap overrides */
