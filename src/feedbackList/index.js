@@ -1,21 +1,39 @@
 import React, {Component} from 'react';
-import {Grid, PageHeader} from 'react-bootstrap';
+import {Grid, Row, Col, Panel, Alert} from 'react-bootstrap';
 
 class FeedbackList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      feedbacks: []
-    };
-  }
 
   render () {
+    let feedbacksHTML = '';
+    if(this.props.feedbacks) {
+      feedbacksHTML = this.props.feedbacks.map(((feedback, i) => (
+        <Panel key={feedback.empId+i}>
+           <Panel.Heading>
+             <Panel.Title componentClass="h3"><strong>{i+1}</strong>. Submitted at: {new Date(1*feedback.submittedOn).toLocaleDateString()}</Panel.Title>
+           </Panel.Heading>
+           <Panel.Body>
+             <Grid fluid={true}>
+              <Row>
+                <Col md={6}>
+                  <h5>Strong points</h5>
+                  <textarea readOnly>{feedback.strongPoints}</textarea>
+                </Col>
+                <Col md={6}>
+                  <h5>Weak points</h5>
+                  <textarea readOnly>{feedback.weakPoints}</textarea>
+                </Col>
+              </Row>
+             </Grid>
+           </Panel.Body>
+         </Panel>
+      )));
+    } else {
+      feedbacksHTML = <Alert bsStyle="info">Please select an Employee.</Alert>;
+    }
+
     return (
-      <Grid className='feedback-list'>
-        <PageHeader>
-          Feedback List
-        </PageHeader>
+      <Grid className='feedback-list' fluid={true}>
+        {feedbacksHTML}
       </Grid>
     );
   }

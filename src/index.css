@@ -4,11 +4,17 @@ body {
   font-family: sans-serif;
 }
 
-.feedback-block { width: 600px; border: 1px solid #CCC;
-  padding:10px 20px 30px 20px; background-color: white; margin: 50px auto;}
+.feedback-list textarea { border: none; resize: none; width: 100%; outline: none;}
+.feedback-list h5 {border-bottom: 1px solid #EEE; padding-bottom: 5px; font-weight: bold;}
+
+/* bootstrap overrides */
+.page-header { margin-top: 20px;}
+
+/* Form style without using bootstrap */
+.feedback-block { width: 600px; border: 1px solid #CCC; padding:10px 20px 30px 20px; background-color: white; margin: 50px auto;}
 .feedback-block label { display: block; }
-.left { float: left; }
-.right { float: right; }
+.feedback-block.left { float: left; }
+.feedback-block .right { float: right; }
 .feedback-block .left, .feedback-block .right { width: 48%; }
 .feedback-block textarea { width:100%; height: 300px;}
 .feedback-form {background-color: white; padding: 20px;}
