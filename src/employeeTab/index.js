@@ -10,13 +10,14 @@ class EmployeeTab extends Component {
     this.state = {
       empList: window.employeeList,
       showEmpForm: false,
-      selectedEmployee: null
+      selectedEmployee: undefined
     };
 
     this.closeEmplyeeForm = this.closeEmplyeeForm.bind(this);
+    this.saveEmployee = this.saveEmployee.bind(this);
   }
 
-  openEmplyeeForm(selectedEmployee=null){
+  openEmplyeeForm(selectedEmployee=undefined){
     this.setState({
       showEmpForm: true,
       selectedEmployee: selectedEmployee
@@ -26,12 +27,17 @@ class EmployeeTab extends Component {
   closeEmplyeeForm(){
     this.setState({
       showEmpForm: false,
-      selectedEmployee: null
+      selectedEmployee: undefined
     });
   }
 
   editEmployee(employee){
     this.openEmplyeeForm(employee);
+  }
+
+  saveEmployee(employee){
+    console.log(employee);
+    this.closeEmplyeeForm();
   }
 
   render () {
@@ -82,8 +88,11 @@ class EmployeeTab extends Component {
       </Table>
 
       <EmployeeForm show={this.state.showEmpForm}
-        employee={this.state.selectedEmployee}
-        closeEmplyeeForm={this.closeEmplyeeForm}/>
+        empJSON={this.state.selectedEmployee}
+        action={this.state.selectedEmployee ? 'Edit' : 'Create'}
+        key={this.state.selectedEmployee ? this.state.selectedEmployee.id : 0}
+        closeEmplyeeForm={this.closeEmplyeeForm}
+        onSubmit={this.saveEmployee}/>
       </Grid>
     );
   }
