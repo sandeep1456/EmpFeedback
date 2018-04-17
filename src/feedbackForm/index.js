@@ -18,7 +18,7 @@ class FeedbackForm extends Component {
     this.onNameChange = this.onNameChange.bind(this);
     this.onStrongPointsChange = this.onStrongPointsChange.bind(this);
     this.onWeakPointsChange = this.onWeakPointsChange.bind(this);
-    this.handleDismiss = this.handleDismiss.bind(this);
+    this.clearErrorAlert = this.clearErrorAlert.bind(this);
     this.clearSuccessAlert = this.clearSuccessAlert.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -48,6 +48,9 @@ class FeedbackForm extends Component {
       this.setState({
         error: errorMsg
       });
+
+     //Clear error after 2 sec
+     setTimeout(this.clearErrorAlert, 2000);
     } else {
       //TODO implement DB save
       window.feedbackList[this.state.empId].push(
@@ -77,6 +80,12 @@ class FeedbackForm extends Component {
     });
   }
 
+  clearErrorAlert(){
+    this.setState({
+      error:''
+    });
+  }
+
   validateForm(){
     let errorMsg = '';
     if(!this.state.empId) {
@@ -89,17 +98,12 @@ class FeedbackForm extends Component {
     return errorMsg;
   }
 
-  handleDismiss(){
-    this.setState({
-      error:''
-    });
-  }
 
   render () {
     let alertText = '';
     if (this.state.error) {
       alertText =
-        <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+        <Alert bsStyle="danger" onDismiss={this.clearErrorAlert}>
           <p>{this.state.error}</p>
         </Alert>;
     }

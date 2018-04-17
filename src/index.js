@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FeedbackForm from './feedbackFormBS/';
+import FeedbackForm from './feedbackForm/';
 import FeedbackTab from './feedbackTab';
 import EmployeeTab from './employeeTab';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
