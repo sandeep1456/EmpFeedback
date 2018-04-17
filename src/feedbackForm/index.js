@@ -53,6 +53,10 @@ class FeedbackForm extends Component {
      setTimeout(this.clearErrorAlert, 2000);
     } else {
       //TODO implement DB save
+      let empFeedbacks = window.feedbackList[this.state.empId];
+      if(!empFeedbacks){
+        window.feedbackList[this.state.empId] = [];
+      }
       window.feedbackList[this.state.empId].push(
        {
          empId: this.state.empId,
