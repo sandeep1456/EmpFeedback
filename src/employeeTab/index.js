@@ -55,6 +55,19 @@ class EmployeeTab extends Component {
     });
   }
 
+  deleteEmployee(employee){
+    for(let i=0; i<window.employeeList.length; i++) {
+      let emp = window.employeeList[i];
+      if(employee.id === emp.id) {
+        window.employeeList.splice(i, 1);
+      }
+    }
+
+    this.setState({
+      empList: window.employeeList
+    });
+  }
+
   render () {
     return (
       <Grid className='employee-tab'>
@@ -89,12 +102,13 @@ class EmployeeTab extends Component {
                 <td>{emp.name}</td>
                 <td>{emp.linkedInId}</td>
                 <td>
-                  <span>
+                  <span title='Edit Employee'>
                     <Glyphicon glyph="pencil"
                       onClick = {this.editEmployee.bind(this, emp)}/>
                   </span>&nbsp;&nbsp;
-                  <span>
-                    <Glyphicon glyph="trash" />
+                  <span title='Delete Employee'>
+                    <Glyphicon glyph="trash"
+                      onClick = {this.deleteEmployee.bind(this, emp)}/>
                   </span>
                 </td>
               </tr>
