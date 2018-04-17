@@ -36,8 +36,23 @@ class EmployeeTab extends Component {
   }
 
   saveEmployee(employee){
-    console.log(employee);
-    this.closeEmplyeeForm();
+    if(employee.id){
+      for(let i=0; i<window.employeeList.length; i++) {
+        let emp = window.employeeList[i];
+        if(employee.id === emp.id) {
+          window.employeeList[i] = employee;
+        }
+      }
+    } else {
+      employee.id = window.employeeList.length+1;
+      window.employeeList.push(employee);
+    }
+
+    this.setState({
+      empList: window.employeeList,
+      showEmpForm: false,
+      selectedEmployee: undefined
+    });
   }
 
   render () {

@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
-import {Modal, Button, FormGroup, ControlLabel, FormControl, Col} from 'react-bootstrap';
+import {Modal, Button, FormGroup, ControlLabel, FormControl, Col,
+      Alert} from 'react-bootstrap';
 
 class EmployeeForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      employee : this.props.empJSON
+      employee : this.props.empJSON,
+      error: ''
     };
 
     this.onEmpIdChange = this.onEmpIdChange.bind(this);
     this.onEmpNameChange = this.onEmpNameChange.bind(this);
     this.onLinkedInIdChange = this.onLinkedInIdChange.bind(this);
+    this.clearErrorAlert = this.clearErrorAlert.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -41,13 +44,46 @@ class EmployeeForm extends Component {
 
   onSubmit(e){
     e.preventDefault();
-    let empJSON = this.state.employee;
-    empJSON.submittedOn = new Date().getTime();
-    this.props.onSubmit(this.state.employee);
-    
+    let errorMsg = this.validateForm();
+    if(errorMsg) {
+      this.setState({
+        error: errorMsg
+      });
+
+     //Clear error after 2 sec
+     setTimeout(this.clearErrorAlert, 2000);
+    } else {
+      let empJSON = this.state.employee;
+      if(!empJSON.id){
+        empJSON.submittedOn = new Date().getTime();
+      }
+      this.props.onSubmit(this.state.employee);
+    }
+  }
+
+  validateForm(){
+    let errorMsg = '';
+    if(!this.state.employee.empId) {
+      errorMsg = 'Please select Employee ID.';
+    } else if(!this.state.employee.name) {
+      errorMsg = 'Please enter Employee Name';
+    }
+    return errorMsg;
+  }
+
+  clearErrorAlert(){
+    this.setState({
+      error: ''
+    });
   }
 
   render () {
+    let errorAlert = '';
+    if(this.state.error) {
+      errorAlert = <Alert bsStyle="danger" onDismiss={this.clearErrorAlert}>
+        <p>{this.state.error}</p>
+      </Alert>;
+    }
     const modalAction = this.props.action;
     let modalBody = <form horizontal>
         <FieldGroup id="FcEmpId" type="text"
@@ -71,6 +107,7 @@ class EmployeeForm extends Component {
             <Modal.Title>{modalAction} Employee</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            {errorAlert}
             <br/>
             {modalBody}
           </Modal.Body>
