@@ -1,21 +1,54 @@
 import React, {Component} from 'react';
-import {Grid, PageHeader, Table, Button, Glyphicon} from 'react-bootstrap';
+import EmployeeForm from '../employeeForm';
+import {Grid, PageHeader, Table, Button, Glyphicon,
+        Row, Col} from 'react-bootstrap';
 
 class EmployeeTab extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      empList: window.employeeList
+      empList: window.employeeList,
+      showEmpForm: false,
+      selectedEmployee: null
     };
+
+    this.closeEmplyeeForm = this.closeEmplyeeForm.bind(this);
+  }
+
+  openEmplyeeForm(selectedEmployee=null){
+    this.setState({
+      showEmpForm: true,
+      selectedEmployee: selectedEmployee
+    });
+  }
+
+  closeEmplyeeForm(){
+    this.setState({
+      showEmpForm: false,
+      selectedEmployee: null
+    });
+  }
+
+  editEmployee(employee){
+    this.openEmplyeeForm(employee);
   }
 
   render () {
     return (
-      <Grid className='feedback-list'>
+      <Grid className='employee-tab'>
         <PageHeader>
           Employee List
         </PageHeader>
+
+        <Row>
+          <Col md={6}></Col>
+          <Col md={6}>
+            <Button className='pull-right' bsStyle='primary'
+              onClick={()=>this.openEmplyeeForm()}>Add Employee</Button>
+          </Col>
+        </Row>
+        <br/>
 
         <Table responsive hover>
           <thead>
@@ -36,7 +69,8 @@ class EmployeeTab extends Component {
                 <td>{emp.linkedInId}</td>
                 <td>
                   <span>
-                    <Glyphicon glyph="pencil" />
+                    <Glyphicon glyph="pencil"
+                      onClick = {this.editEmployee.bind(this, emp)}/>
                   </span>&nbsp;&nbsp;
                   <span>
                     <Glyphicon glyph="trash" />
@@ -46,6 +80,10 @@ class EmployeeTab extends Component {
           ))}
         </tbody>
       </Table>
+
+      <EmployeeForm show={this.state.showEmpForm}
+        employee={this.state.selectedEmployee}
+        closeEmplyeeForm={this.closeEmplyeeForm}/>
       </Grid>
     );
   }

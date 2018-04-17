@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col, FormGroup, ControlLabel, FormControl,
-   HelpBlock, Button, PageHeader, Alert} from 'react-bootstrap';
+    Button, PageHeader, Alert} from 'react-bootstrap';
 
 class FeedbackForm extends Component {
   constructor(props) {
@@ -177,16 +177,6 @@ class FeedbackForm extends Component {
       </Grid>
     );
   }
-}
-
-function FieldGroup({ id, label, help, ...props }) {
-  return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
-      {help && <HelpBlock>{help}</HelpBlock>}
-    </FormGroup>
-  );
 }
 
 export default FeedbackForm;

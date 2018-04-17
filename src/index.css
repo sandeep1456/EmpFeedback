@@ -6,6 +6,7 @@ body {
 
 .feedback-list section { width: 100%; white-space: pre-line;}
 .feedback-list h5 {border-bottom: 1px solid #EEE; padding-bottom: 5px; font-weight: bold;}
+.employee-tab .glyphicon {cursor:pointer;}
 
 /* bootstrap overrides */
 .page-header { margin-top: 20px;}
