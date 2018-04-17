@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Modal, Button, FormGroup, ControlLabel, FormControl, Col,
-      Alert} from 'react-bootstrap';
+      Alert, HelpBlock} from 'react-bootstrap';
 
 class EmployeeForm extends Component {
   constructor(props) {
@@ -96,6 +96,7 @@ class EmployeeForm extends Component {
           onChange={this.onEmpNameChange}/>
         <FieldGroup id="FcEmpLinkedInID" type="text"
           label="LinkedIn ID" placeholder="Enter employee's LinkedIn ID"
+          help="Go to your LinkedIn profile and copy end part of URL. e.g. 'sandeeprkamble' is your LinkedIn ID if your URL is https://www.linkedin.com/in/sandeeprkamble/ "
           value={this.state.employee.linkedInId}
           onChange={this.onLinkedInIdChange}/>
       </form>;
@@ -124,7 +125,10 @@ function FieldGroup({ id, label, help, ...props }) {
   return (
     <FormGroup controlId={id}>
       <Col componentClass={ControlLabel} md={3}>{label}</Col>
-      <Col md={9}><FormControl {...props} /></Col>
+      <Col md={9}>
+        <FormControl {...props} />
+        {help && <HelpBlock>{help}</HelpBlock>}
+      </Col>
       <br style={{clear:'both'}}/>
     </FormGroup>
   );
