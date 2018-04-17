@@ -58,6 +58,13 @@ class EmployeeForm extends Component {
         empJSON.submittedOn = new Date().getTime();
       }
       this.props.onSubmit(this.state.employee);
+      this.setState({
+        employee: {
+          empId: '',
+          name: '',
+          linkedInId: ''
+        }
+      });
     }
   }
 
