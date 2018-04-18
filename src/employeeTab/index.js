@@ -70,6 +70,7 @@ class EmployeeTab extends Component {
     this.setState({
       empList: window.employeeList,
       showEmpForm: false,
+      empFormAction: null,
       selectedEmployee: undefined
     });
   }

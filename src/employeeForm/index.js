@@ -60,7 +60,7 @@ class EmployeeForm extends Component {
       </Alert>;
     }
     const modalAction = this.props.action;
-    let modalBody = <form horizontal={true}>
+    let modalBody = <form horizontal='true'>
         <FieldGroup id="FcEmpId" type="text"
           label="Employee ID" placeholder="Enter employee ID"
           value={this.props.empJSON.empId}
@@ -105,7 +105,7 @@ class EmployeeForm extends Component {
 function FieldGroup({ id, label, help, ...props }) {
   return (
     <FormGroup controlId={id}>
-      <Col componentClass={ControlLabel} md={3}>{label}</Col>
+      <Col md={3}>{label}</Col>
       <Col md={9}>
         <FormControl {...props} />
         {help && <HelpBlock>{help}</HelpBlock>}
