@@ -15,14 +15,33 @@ class EmployeeTab extends Component {
 
     this.closeEmplyeeForm = this.closeEmplyeeForm.bind(this);
     this.saveEmployee = this.saveEmployee.bind(this);
+    this.onEmpIdChange = this.onEmpIdChange.bind(this);
+    this.onEmpNameChange = this.onEmpNameChange.bind(this);
+    this.onLinkedInIdChange = this.onLinkedInIdChange.bind(this);
   }
 
-  openEmplyeeForm(selectedEmployee=undefined){
+  openEmplyeeForm(selectedEmployee=undefined, empFormAction='Create'){
+    let empJSON = undefined;
+    if(selectedEmployee){
+      //empJSON = Object.assign({}, selectedEmployee);
+      //empJSON = JSON.parse(JSON.stringify(selectedEmployee));
+      empJSON = {...selectedEmployee};
+      // empJSON.id = selectedEmployee.id;
+      // empJSON.empId = selectedEmployee.empId;
+      // empJSON.name = selectedEmployee.name;
+      // empJSON.linkedInId = selectedEmployee.linkedInId;
+    }
+
     this.setState({
       showEmpForm: true,
-      selectedEmployee: selectedEmployee
+      selectedEmployee: empJSON,
+      empFormAction: empFormAction
     });
   }
+
+  // componentWillUpdate(nextProps, nextState){
+  //   console.log(nextState);
+  // }
 
   closeEmplyeeForm(){
     this.setState({
@@ -32,7 +51,7 @@ class EmployeeTab extends Component {
   }
 
   editEmployee(employee){
-    this.openEmplyeeForm(employee);
+    this.openEmplyeeForm(employee, 'Edit');
   }
 
   saveEmployee(employee){
@@ -65,6 +84,30 @@ class EmployeeTab extends Component {
 
     this.setState({
       empList: window.employeeList
+    });
+  }
+
+  onEmpIdChange(e){
+    let empJSON = this.state.selectedEmployee || {};
+    empJSON.empId = e.target.value;
+    this.setState({
+      selectedEmployee: empJSON
+    });
+  }
+
+  onEmpNameChange(e){
+    let empJSON = this.state.selectedEmployee || {};
+    empJSON.name = e.target.value;
+    this.setState({
+      selectedEmployee: empJSON
+    });
+  }
+
+  onLinkedInIdChange(e){
+    let empJSON = this.state.selectedEmployee || {};
+    empJSON.linkedInId = e.target.value;
+    this.setState({
+      selectedEmployee: empJSON
     });
   }
 
@@ -118,10 +161,14 @@ class EmployeeTab extends Component {
 
       <EmployeeForm show={this.state.showEmpForm}
         empJSON={this.state.selectedEmployee}
-        action={this.state.selectedEmployee ? 'Edit' : 'Create'}
-        key={this.state.selectedEmployee ? this.state.selectedEmployee.id : 0}
+        action={this.state.empFormAction}
+        key={this.state.empFormAction === 'Edit' ? this.state.selectedEmployee.id : 0}
         closeEmplyeeForm={this.closeEmplyeeForm}
-        onSubmit={this.saveEmployee}/>
+        onSubmit={this.saveEmployee}
+        onEmpIdChange={this.onEmpIdChange}
+        onEmpNameChange={this.onEmpNameChange}
+        onLinkedInIdChange={this.onLinkedInIdChange}
+        />
       </Grid>
     );
   }

@@ -7,39 +7,11 @@ class EmployeeForm extends Component {
     super(props);
 
     this.state = {
-      employee : this.props.empJSON,
       error: ''
     };
 
-    this.onEmpIdChange = this.onEmpIdChange.bind(this);
-    this.onEmpNameChange = this.onEmpNameChange.bind(this);
-    this.onLinkedInIdChange = this.onLinkedInIdChange.bind(this);
     this.clearErrorAlert = this.clearErrorAlert.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onEmpIdChange(e){
-    let empJSON = this.state.employee;
-    empJSON.empId = e.target.value;
-    this.setState({
-      employee: empJSON
-    });
-  }
-
-  onEmpNameChange(e){
-    let empJSON = this.state.employee;
-    empJSON.name = e.target.value;
-    this.setState({
-      employee: empJSON
-    });
-  }
-
-  onLinkedInIdChange(e){
-    let empJSON = this.state.employee;
-    empJSON.linkedInId = e.target.value;
-    this.setState({
-      employee: empJSON
-    });
   }
 
   onSubmit(e){
@@ -53,26 +25,22 @@ class EmployeeForm extends Component {
      //Clear error after 2 sec
      setTimeout(this.clearErrorAlert, 2000);
     } else {
-      let empJSON = this.state.employee;
+      let empJSON = this.props.empJSON;
       if(!empJSON.id){
         empJSON.submittedOn = new Date().getTime();
       }
-      this.props.onSubmit(this.state.employee);
-      this.setState({
-        employee: {
-          empId: '',
-          name: '',
-          linkedInId: ''
-        }
-      });
+      empJSON.empId = this.empId.value;
+      empJSON.name = this.name.value;
+      empJSON.linkedInId = this.linkedInId.value;
+      this.props.onSubmit(empJSON);
     }
   }
 
   validateForm(){
     let errorMsg = '';
-    if(!this.state.employee.empId) {
+    if(!this.empId.value) {
       errorMsg = 'Please select Employee ID.';
-    } else if(!this.state.employee.name) {
+    } else if(!this.name.value) {
       errorMsg = 'Please enter Employee Name';
     }
     return errorMsg;
@@ -92,20 +60,26 @@ class EmployeeForm extends Component {
       </Alert>;
     }
     const modalAction = this.props.action;
-    let modalBody = <form horizontal>
+    let modalBody = <form horizontal={true}>
         <FieldGroup id="FcEmpId" type="text"
           label="Employee ID" placeholder="Enter employee ID"
-          value={this.state.employee.empId}
-          onChange={this.onEmpIdChange}/>
+          value={this.props.empJSON.empId}
+          onChange={this.props.onEmpIdChange}
+          inputRef = {(input) => this.empId = input}
+          />
         <FieldGroup id="FcEmpName" type="text"
           label="Name" placeholder="Enter employee Name"
-          value={this.state.employee.name}
-          onChange={this.onEmpNameChange}/>
+          value={this.props.empJSON.name}
+          onChange={this.props.onEmpNameChange}
+          inputRef = {(input) => this.name = input}
+          />
         <FieldGroup id="FcEmpLinkedInID" type="text"
           label="LinkedIn ID" placeholder="Enter employee's LinkedIn ID"
           help="Go to your LinkedIn profile and copy end part of URL. e.g. 'sandeeprkamble' is your LinkedIn ID if your URL is https://www.linkedin.com/in/sandeeprkamble/ "
-          value={this.state.employee.linkedInId}
-          onChange={this.onLinkedInIdChange}/>
+          value={this.props.empJSON.linkedInId}
+          onChange={this.props.onLinkedInIdChange}
+          inputRef = {(input) => this.linkedInId = input}
+          />
       </form>;
 
     return (
