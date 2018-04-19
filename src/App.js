@@ -18,15 +18,15 @@ class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem>
+              <NavItem componentClass='span'>
                 <Link to="/">Feedback</Link>
               </NavItem>
             </Nav>
             <Nav pullRight>
-              <NavItem>
+              <NavItem componentClass='span'>
                 <Link to="/responses">Responses</Link>
               </NavItem>
-              <NavItem>
+              <NavItem componentClass='span'>
                 <Link to="/employees">Employees</Link>
               </NavItem>
             </Nav>

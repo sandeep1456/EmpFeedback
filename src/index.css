@@ -11,6 +11,7 @@ body {
 
 /* bootstrap overrides */
 .page-header { margin-top: 20px;}
+.navbar-nav span[role=button] {padding: 15px; display: inline-block; line-height: 20px;}
 
 /* Form style without using bootstrap */
 .feedback-block { width: 600px; border: 1px solid #CCC; padding:10px 20px 30px 20px; background-color: white; margin: 50px auto;}
