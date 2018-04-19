@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Modal, Button, FormGroup, FormControl, Col,
       Alert, HelpBlock} from 'react-bootstrap';
 
@@ -122,5 +123,15 @@ EmployeeForm.defaultProps = {
     linkedInId: ''
   },
   action: 'Create'
+}
+
+EmployeeForm.propTypes = {
+  empJSON: PropTypes.object,
+  action: PropTypes.string,
+  closeEmplyeeForm: PropTypes.func,
+  saveEmployee: PropTypes.func,
+  onEmpIdChange: PropTypes.func,
+  onEmpNameChange: PropTypes.func,
+  onLinkedInIdChange: PropTypes.func
 }
 export default EmployeeForm;

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Grid, Row, Col, Panel, Alert} from 'react-bootstrap';
 
 class FeedbackList extends Component {
@@ -38,5 +39,9 @@ class FeedbackList extends Component {
     );
   }
 }
+
+FeedbackList.propTypes = {
+  feedbacks: PropTypes.array
+};
 
 export default FeedbackList;

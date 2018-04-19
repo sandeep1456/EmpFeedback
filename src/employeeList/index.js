@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
 class EmployeeList extends Component {
@@ -18,6 +19,12 @@ class EmployeeList extends Component {
       </ListGroup>
     );
   }
+}
+
+EmployeeList.propTypes = {
+  employees:PropTypes.array,
+  selectedEmpId:PropTypes.number,
+  onEmpSelect:PropTypes.func
 }
 
 export default EmployeeList;
