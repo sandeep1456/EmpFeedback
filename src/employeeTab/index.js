@@ -88,6 +88,10 @@ class EmployeeTab extends Component {
     });
   }
 
+  submitFeedback(employee){
+    this.props.history.push(`/feedback/${employee.id}`);
+  }
+
   onEmpIdChange(e){
     let empJSON = this.state.selectedEmployee || {};
     empJSON.empId = e.target.value;
@@ -153,6 +157,10 @@ class EmployeeTab extends Component {
                   <span title='Delete Employee'>
                     <Glyphicon glyph="trash"
                       onClick = {this.deleteEmployee.bind(this, emp)}/>
+                  </span>&nbsp;&nbsp;
+                  <span title='Submit feedback'>
+                    <Glyphicon glyph="edit"
+                      onClick = {this.submitFeedback.bind(this, emp)}/>
                   </span>
                 </td>
               </tr>

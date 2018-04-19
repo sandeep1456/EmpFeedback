@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Button, FormGroup, ControlLabel, FormControl, Col,
+import {Modal, Button, FormGroup, FormControl, Col,
       Alert, HelpBlock} from 'react-bootstrap';
 
 class EmployeeForm extends Component {

@@ -12,7 +12,7 @@ class EmployeeList extends Component {
       <ListGroup>
         {this.props.employees.map(((emp, i) => (
           <ListGroupItem key={i}
-            className = {this.props.selectedEmpId == emp.id ? 'active' : ''}
+            className = {1*this.props.selectedEmpId === 1*emp.id ? 'active' : ''}
             onClick = {this.onClickEmp.bind(this, emp.id)}>{emp.name}</ListGroupItem>
         )))}
       </ListGroup>

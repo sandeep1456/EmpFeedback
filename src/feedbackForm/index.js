@@ -7,7 +7,7 @@ class FeedbackForm extends Component {
     super(props);
 
     this.state = {
-      empId: '',
+      empId: this.props.match.params.empId,
       strongPoints: '',
       weakPoints: '',
       error:'',
@@ -115,7 +115,7 @@ class FeedbackForm extends Component {
     if(this.state.empId){
       for (let i = 0 ; i<this.state.empList.length; i++) {
         let emp = this.state.empList[i];
-        if(emp.id == this.state.empId && emp.linkedInId) {
+        if(1*emp.id === 1*this.state.empId && emp.linkedInId) {
           let linkedInURL = `https://www.linkedin.com/in/${emp.linkedInId}`;
           linkedInLink = <Row>
             <Col md={12}><h4>If you wish you can endorse <b>{emp.name}</b> on LinkedIn, <a target='_blank' href={linkedInURL}> Click here. </a> </h4></Col>
