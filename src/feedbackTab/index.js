@@ -10,7 +10,7 @@ class FeedbackTab extends Component {
     this.state = {
       employees: window.employeeList,
       feedbacks: window.feedbackList,
-      selectedEmpId: ''
+      selectedEmpId: this.props.match.params.empId
     };
 
     this.onEmpSelect = this.onEmpSelect.bind(this);

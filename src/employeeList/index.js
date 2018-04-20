@@ -23,7 +23,7 @@ class EmployeeList extends Component {
 
 EmployeeList.propTypes = {
   employees:PropTypes.array,
-  selectedEmpId:PropTypes.number,
+  selectedEmpId:PropTypes.string,
   onEmpSelect:PropTypes.func
 }
 

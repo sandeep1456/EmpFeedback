@@ -92,6 +92,10 @@ class EmployeeTab extends Component {
     this.props.history.push(`/feedback/${employee.id}`);
   }
 
+  viewFeedbacks(employee){
+    this.props.history.push(`/responses/${employee.id}`);
+  }
+
   onEmpIdChange(e){
     let empJSON = this.state.selectedEmployee || {};
     empJSON.empId = e.target.value;
@@ -161,6 +165,10 @@ class EmployeeTab extends Component {
                   <span title='Submit feedback'>
                     <Glyphicon glyph="edit"
                       onClick = {this.submitFeedback.bind(this, emp)}/>
+                  </span>&nbsp;&nbsp;
+                  <span title='View feedbacks'>
+                    <Glyphicon glyph="list"
+                      onClick = {this.viewFeedbacks.bind(this, emp)}/>
                   </span>
                 </td>
               </tr>
