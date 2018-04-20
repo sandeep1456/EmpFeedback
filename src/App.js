@@ -32,12 +32,10 @@ class App extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Route exact path="/" component={FeedbackForm} />
-        <Route exact path="/feedback" component={FeedbackForm} />
-        <Route path={`/feedback/:empId`} component={FeedbackForm} />
-        <Route exact path='/responses' component={FeedbackTab} />
-        <Route path={`/responses/:empId`} component={FeedbackTab} />
-        <Route path="/employees" component={EmployeeTab} />
+        <Route exact path='/' component={FeedbackForm} />
+        <Route path='/feedback/:empId?' component={FeedbackForm} />
+        <Route path='/responses/:empId?' component={FeedbackTab} />
+        <Route path='/employees' component={EmployeeTab} />
       </div>
     );
   }
