@@ -141,50 +141,52 @@ componentDidUpdate(){
       successAlert = <Alert bsStyle='success'>Your feedback has been recorded successfully, Thank You!</Alert>;
     }
 
-    let formHtml = <Row>
-      <Col md={9}>
-        <form onSubmit={this.onSubmit}>
-            <FormGroup controlId="formControlsNameSelect">
-          <ControlLabel>Employee Name</ControlLabel>
-          <FormControl componentClass="select"
-            value={this.state.empId}
-            onChange={this.onNameChange}
-            placeholder="Select Employee">
-            <option value={-1}>Select Employee</option>
-            {this.state.empList.map((emp, i) => (
-              <option key={i} value={emp.id}>{emp.name}</option>
-            ))}
-          </FormControl>
-        </FormGroup>
+    let formHtml = <form onSubmit={this.onSubmit}>
+      <FormGroup controlId="formControlsNameSelect">
+        <ControlLabel>Employee Name</ControlLabel>
+        <FormControl componentClass="select"
+          value={this.state.empId}
+          onChange={this.onNameChange}
+          placeholder="Select Employee">
+          <option value={-1}>Select Employee</option>
+          {this.state.empList.map((emp, i) => (
+            <option key={i} value={emp.id}>{emp.name}</option>
+          ))}
+        </FormControl>
+      </FormGroup>
 
-        <Row>
-          <Col md={6}>
-            <FormGroup controlId="formControlsStrong">
-              <ControlLabel>Strong Points</ControlLabel>
-              <FormControl componentClass="textarea"
-                value={this.state.strongPoints}
-                onChange={this.onStrongPointsChange}
-                placeholder="Enter Strong Points"
-                style={{height:'300px'}}/>
-            </FormGroup>
-          </Col>
-          <Col md={6}>
-            <FormGroup controlId="formControlsWeak">
-              <ControlLabel>Weak Points</ControlLabel>
-              <FormControl componentClass="textarea"
-                value={this.state.weakPoints}
-                onChange={this.onWeakPointsChange}
-                placeholder="Enter Weak Points"
-                style={{height:'300px'}} />
-            </FormGroup>
-          </Col>
-        </Row>
-        {linkedInLink}
-        <Button className='pull-right' bsStyle='primary' type='submit'> Submit Feedback</Button>
-      </form>;
-    </Col>
-      <Col md={3}><div className='linkedin-batch'>{linkedInProfile}</div></Col>
-    </Row>;
+      <Row>
+        <Col md={6}>
+          <FormGroup controlId="formControlsStrong">
+            <ControlLabel>Strong Points</ControlLabel>
+            <FormControl componentClass="textarea"
+              value={this.state.strongPoints}
+              onChange={this.onStrongPointsChange}
+              placeholder="Enter Strong Points"
+              style={{height:'300px'}}/>
+          </FormGroup>
+        </Col>
+        <Col md={6}>
+          <FormGroup controlId="formControlsWeak">
+            <ControlLabel>Weak Points</ControlLabel>
+            <FormControl componentClass="textarea"
+              value={this.state.weakPoints}
+              onChange={this.onWeakPointsChange}
+              placeholder="Enter Weak Points"
+              style={{height:'300px'}} />
+          </FormGroup>
+        </Col>
+      </Row>
+      {linkedInLink}
+      <Button className='pull-right' bsStyle='primary' type='submit'> Submit Feedback</Button>
+    </form>;
+
+    if(linkedInProfile) {
+      formHtml = <Row>
+        <Col md={9}>{formHtml}</Col>
+        <Col md={3}><div className='linkedin-batch'>{linkedInProfile}</div></Col>
+      </Row>;
+    }
 
     return (
       <Grid className='feedback-form' >
