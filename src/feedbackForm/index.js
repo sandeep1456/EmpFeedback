@@ -102,7 +102,14 @@ class FeedbackForm extends Component {
     return errorMsg;
   }
 
-
+componentDidUpdate(){
+  try {
+    // to render LinkedIn profile batch
+    window.LIRenderAll();
+  } catch (e) {
+    console.log(e);
+  }
+}
   render () {
     let alertText = '';
     if (this.state.error) {
@@ -112,6 +119,7 @@ class FeedbackForm extends Component {
         </Alert>;
     }
     let linkedInLink = '';
+    let linkedInProfile = '';
     if(this.state.empId){
       for (let i = 0 ; i<this.state.empList.length; i++) {
         let emp = this.state.empList[i];
@@ -120,6 +128,9 @@ class FeedbackForm extends Component {
           linkedInLink = <Row>
             <Col md={12}><h4>If you wish you can endorse <b>{emp.name}</b> on LinkedIn, <a target='_blank' href={linkedInURL}> Click here. </a> </h4></Col>
           </Row>;
+          linkedInProfile = <div key={new Date().getTime()} className="LI-profile-badge"  data-version="v1" data-size="large" data-locale="en_US" data-type="vertical" data-theme="light" data-vanity={emp.linkedInId}>
+            <a className="LI-simple-link" href= {linkedInURL+'?trk=profile-badge'}>{emp.name}</a>
+          </div>;
           break;
         }
       }
@@ -130,54 +141,59 @@ class FeedbackForm extends Component {
       successAlert = <Alert bsStyle='success'>Your feedback has been recorded successfully, Thank You!</Alert>;
     }
 
+    let formHtml = <Row>
+      <Col md={9}>
+        <form onSubmit={this.onSubmit}>
+            <FormGroup controlId="formControlsNameSelect">
+          <ControlLabel>Employee Name</ControlLabel>
+          <FormControl componentClass="select"
+            value={this.state.empId}
+            onChange={this.onNameChange}
+            placeholder="Select Employee">
+            <option value={-1}>Select Employee</option>
+            {this.state.empList.map((emp, i) => (
+              <option key={i} value={emp.id}>{emp.name}</option>
+            ))}
+          </FormControl>
+        </FormGroup>
+
+        <Row>
+          <Col md={6}>
+            <FormGroup controlId="formControlsStrong">
+              <ControlLabel>Strong Points</ControlLabel>
+              <FormControl componentClass="textarea"
+                value={this.state.strongPoints}
+                onChange={this.onStrongPointsChange}
+                placeholder="Enter Strong Points"
+                style={{height:'300px'}}/>
+            </FormGroup>
+          </Col>
+          <Col md={6}>
+            <FormGroup controlId="formControlsWeak">
+              <ControlLabel>Weak Points</ControlLabel>
+              <FormControl componentClass="textarea"
+                value={this.state.weakPoints}
+                onChange={this.onWeakPointsChange}
+                placeholder="Enter Weak Points"
+                style={{height:'300px'}} />
+            </FormGroup>
+          </Col>
+        </Row>
+        {linkedInLink}
+        <Button className='pull-right' bsStyle='primary' type='submit'> Submit Feedback</Button>
+      </form>;
+    </Col>
+      <Col md={3}><div className='linkedin-batch'>{linkedInProfile}</div></Col>
+    </Row>;
+
     return (
       <Grid className='feedback-form' >
         <PageHeader>
           Feedback Form
         </PageHeader>
-
         {alertText}
         {successAlert}
-
-        <form onSubmit={this.onSubmit}>
-          <FormGroup controlId="formControlsNameSelect">
-            <ControlLabel>Employee Name</ControlLabel>
-            <FormControl componentClass="select"
-              value={this.state.empId}
-              onChange={this.onNameChange}
-              placeholder="Select Employee">
-              <option value={-1}>Select Employee</option>
-              {this.state.empList.map((emp, i) => (
-                <option key={i} value={emp.id}>{emp.name}</option>
-              ))}
-            </FormControl>
-          </FormGroup>
-
-          <Row>
-            <Col md={6}>
-              <FormGroup controlId="formControlsStrong">
-                <ControlLabel>Strong Points</ControlLabel>
-                <FormControl componentClass="textarea"
-                  value={this.state.strongPoints}
-                  onChange={this.onStrongPointsChange}
-                  placeholder="Enter Strong Points"
-                  style={{height:'300px'}}/>
-              </FormGroup>
-            </Col>
-            <Col md={6}>
-              <FormGroup controlId="formControlsWeak">
-                <ControlLabel>Weak Points</ControlLabel>
-                <FormControl componentClass="textarea"
-                  value={this.state.weakPoints}
-                  onChange={this.onWeakPointsChange}
-                  placeholder="Enter Weak Points"
-                  style={{height:'300px'}} />
-              </FormGroup>
-            </Col>
-          </Row>
-          {linkedInLink}
-          <Button className='pull-right' bsStyle='primary' type='submit'> Submit Feedback</Button>
-        </form>
+        {formHtml}
       </Grid>
     );
   }
