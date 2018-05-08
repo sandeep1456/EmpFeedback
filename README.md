@@ -7,5 +7,6 @@ A sample React App for collecting Employee Feedback
  - React Bootstrap
  - Grid and Modal popup
  - React Router
+ - LinkedIn profile batch integration
 
-https://sandeep1456.github.io/EmpFeedback/
+Demo: https://sandeep1456.github.io/EmpFeedback/
