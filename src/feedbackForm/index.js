@@ -102,14 +102,25 @@ class FeedbackForm extends Component {
     return errorMsg;
   }
 
-componentDidUpdate(){
-  try {
-    // to render LinkedIn profile batch
-    window.LIRenderAll();
-  } catch (e) {
-    console.log(e);
+  componentDidMount(){
+    console.log("mount");
+    this.refreshLinkedInBatch();
   }
-}
+
+  componentDidUpdate(){
+    console.log("update");
+    this.refreshLinkedInBatch();
+  }
+
+  refreshLinkedInBatch(){
+    try {
+      // to render LinkedIn profile batch
+      window.LIRenderAll();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   render () {
     let alertText = '';
     if (this.state.error) {
